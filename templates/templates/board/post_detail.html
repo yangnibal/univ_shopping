@@ -1,0 +1,15 @@
+{% extends 'board/base.html' %}
+
+{% block content %}
+    <div>
+        {% if post.created_date %}
+            <div class="det_created_date">
+                {{ post.created_date }}
+            </div>
+        {% endif %}
+        <div>{{ post.title }}</div>
+        <div>{{ post.content }}</div>
+        <div>{{ post.author }}</div>
+        <a href="{% url 'post_edit' pk=post.pk %}">edit</a>
+    </div>
+{% endblock %}

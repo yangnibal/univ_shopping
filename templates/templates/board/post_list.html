@@ -1,0 +1,13 @@
+{% extends 'board/base.html' %}
+
+{% block content %}
+    <h1>hi</h1>
+    <h1><a href="{% url 'post_new' %}">add post</a></h1>
+    {% for post in posts %}
+        <a class="posts" href="{% url 'post_detail' pk=post.pk %}">
+            <div class="title">title: {{post.title}}</div>
+            <div class="author">author: {{post.author}}</div>
+            <div class="created_date">created: {{post.created_date}}</div>
+        </a>
+    {% endfor %}
+{% endblock %}
