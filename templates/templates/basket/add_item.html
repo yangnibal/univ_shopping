@@ -1,0 +1,9 @@
+{% extends 'board/base.html' %}
+
+{% block content %}
+    <form method="POST">{% csrf_token %}
+        <input class="item-name" placeholder="name" name="item_name">
+        <input class="item-link" placeholder="link" name="item_link">
+        <button type="submit">add</button>
+    </form>
+{% endblock %}

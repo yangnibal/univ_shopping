@@ -2,16 +2,7 @@
 
 {% block content %}
     <div>
-            <div>{{basket.author}}</div>
-            <div>
-                {{ basket.title }}
-            </div>
-            <div>
-                {{ basket.item }}
-            </div>
-            <div>
-                {{ basket.item }}
-            </div>
-        <a href="{% url 'home' %}">
+        <div>{{ basket.name }}</div>
+        <div>{{ basket.items }}</div> 
     </div>
 {% endblock %}

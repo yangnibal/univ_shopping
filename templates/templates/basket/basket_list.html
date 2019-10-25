@@ -1,12 +1,9 @@
 {% extends 'board/base.html' %}
 
 {% block content %}
-    <a href="{% url 'make_basket' %}">add basket</a>
-    {% for basket in baskets %}
-        <a class="posts" href="{% url 'basket_detail' pk=basket.pk %}">
-            <div>{{ basket.title }}</div>
-            <div>{{ basket.author }}</div>
-        </a>
-    {% endfor %}
-    
+    <div class="posts">
+        {% for basket in baskets %}
+            {{basket.basket_name}}
+        {% endfor %}
+    </div>
 {% endblock %}
