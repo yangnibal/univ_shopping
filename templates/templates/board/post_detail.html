@@ -11,5 +11,6 @@
         <div>{{ post.content }}</div>
         <div>{{ post.author }}</div>
         <a href="{% url 'post_edit' pk=post.pk %}">edit</a>
+        <a href="{% url 'home' %}">home</a>
     </div>
 {% endblock %}

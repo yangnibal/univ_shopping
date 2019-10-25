@@ -1,0 +1,14 @@
+{% extends 'board/base.html' %}
+
+{% block content %}
+    <div>
+        <form method="POST" action="{% url 'login' %}">{% csrf_token %}
+            {% if error %}
+                {{error}}
+            {% endif %}
+            {{ form.as_p }}
+            <button type="submit">login</button>
+            <a href="{% url 'signup' %}">signup</a>
+        </form>
+    </div>
+{% endblock %}

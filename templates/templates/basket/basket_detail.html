@@ -1,0 +1,17 @@
+{% extends 'board/base.html' %}
+
+{% block content %}
+    <div>
+            <div>{{basket.author}}</div>
+            <div>
+                {{ basket.title }}
+            </div>
+            <div>
+                {{ basket.item }}
+            </div>
+            <div>
+                {{ basket.item }}
+            </div>
+        <a href="{% url 'home' %}">
+    </div>
+{% endblock %}

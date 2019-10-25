@@ -4,6 +4,9 @@ from .models import Board
 from .forms import BoardForm
 from django.shortcuts import redirect
 
+def home(request):
+    return render(request, 'board/index.html', {})
+
 def board_list(request):
     posts = Board.objects.filter(created_date__lte=timezone.now()).order_by('created_date')
     return render(request, 'board/post_list.html', {'posts': posts})
@@ -32,10 +35,12 @@ def post_edit(request, pk):
         if form.is_valid():
             post = form.save(commit=False)
             post.author = request.user
-            post.published_date = timezone.now()
+            post.created_date = timezone.now()
             post.save()
             return redirect('post_detail', pk=post.pk)
     else:
         form = BoardForm(instance=post)
-    return render(request, 'blog/post_edit.html', {'form': form})
+    return render(request, 'board/post_edit.html', {'form': form})
+
+
 # Create your views here.
