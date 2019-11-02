@@ -7,23 +7,23 @@ from .forms import LoginForm
 
 def login(request):
     if request.method == "POST":
-        form = LoginForm(request.POST)
-        if form.is_valid():
-            username = form.cleaned_data['username']
-            password = form.cleaned_data['password']
-            user = auth.authenticate(request, username=username, password=password)
-            if user is not None:
-                auth.login(request, user)
-                return redirect('home')
-            else:
-                return render(request, 'user/login.html', {'error': 'email or password is not correct'})
+        login = LoginForm(request.POST)
+        username = request.POST['username']
+        password = request.POST['password']
+        user = auth.authenticate(request, username=username, password=password)
+        if user is not None:
+            auth.login(request, user)
+            return redirect('home')
+        else:
+            return render(request, 'user/login.html', {'error': 'error'})
     else:
-        form = LoginForm()
-    return render(request, 'user/login.html', {'form': form})
+        login = LoginForm()
+    return render(request, 'user/login.html', {'login': login})
 
 def logout(request):
     auth.logout(request)
-    return redirect('login')
+
+    return redirect('home')
 
 def signup(request):
     if request.method == "POST":
@@ -38,4 +38,6 @@ def signup(request):
             return redirect('login')
         return render(request, 'user/signup.html', {})
     return render(request, 'user/signup.html', {})
+
+
 # Create your views here.

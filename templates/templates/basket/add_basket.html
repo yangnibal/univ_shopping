@@ -1,9 +1,0 @@
-{% extends 'board/base.html' %}
-
-{% block content %}
-    <form method="POST">{% csrf_token %}
-        <input class="basket-name" placeholder="basket name" name="basket_name">
-        <a href="{% url 'add_item' %}">add item</a>
-        <button type="submit">Save</button>
-    </form>
-{% endblock %}

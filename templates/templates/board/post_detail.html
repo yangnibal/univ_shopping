@@ -1,16 +1,49 @@
 {% extends 'board/base.html' %}
+{% load staticfiles %}
 
 {% block content %}
     <div>
-        {% if post.created_date %}
-            <div class="det_created_date">
-                {{ post.created_date }}
+        <nav class="blog-nav">
+            <div class="blog-logo">WISHLIST</div>
+            <div class="blog-icon">
+                <a href="{% url 'home' %}">
+                    <i class="fas fa-home add-icon i"></i>
+                </a>
             </div>
-        {% endif %}
-        <div>{{ post.title }}</div>
-        <div>{{ post.content }}</div>
-        <div>{{ post.author }}</div>
-        <a href="{% url 'post_edit' pk=post.pk %}">edit</a>
-        <a href="{% url 'home' %}">home</a>
+            {% if user.is_authenticated %}
+            <div class="blog-icon">
+                <a href="{% url 'post_new' %}">
+                    <i class="fas fa-plus add-icon i"></i>
+                </a>
+            </div>
+            {% endif %}
+        </nav>
+        <div class="detail-wrapper">
+            <div class="left-posts">
+                {% for postlist in posts %}
+                <a class="postlist-url" href="{% url 'post_detail' pk=postlist.pk %}">
+                    <div class="postlist-title">{{postlist.title}}</div>
+                </a>
+                {% endfor %}
+            </div>
+            <div class="right-posts">
+                <div class="post-detail-wrapper">
+                    <div class="detail-title">{{ post.title }}
+                        <div class="detail-author">{{ post.author }}</div>
+                    </div>
+                    <div class="detail-content">{{ post.content }}</div>
+                </div>
+                {% if request.user == post.author %}
+                <div class="edit-wrapper">   
+                    <a class="edit-url" href="{% url 'post_edit' pk=post.pk %}">
+                        <i class="fas fa-edit i"></i>
+                    </a>
+                    <a class="trash-url" href="{% url 'post_edit' pk=post.pk %}">
+                        <i class="fas fa-trash-alt i"></i>
+                    </a>
+                </div>
+                {% endif %}
+            </div>
+        </div>   
     </div>
 {% endblock %}

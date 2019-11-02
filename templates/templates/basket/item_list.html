@@ -1,0 +1,42 @@
+{% extends 'board/base.html' %}
+{% load staticfiles %}
+
+{% block head %}
+    <link rel="stylesheet" href="{% static 'css/itemlist.css' %}">
+{% endblock %}
+
+{% block content %}
+    <nav class="blog-nav">
+        <div class="blog-logo">WISHLIST</div>
+        <div class="blog-icon">
+            <a href="{% url 'home' %}">
+                <i class="fas fa-home add-icon i"></i>
+            </a>
+        </div>
+        {% if user.is_authenticated %}
+        <div class="blog-icon">
+            <a href="{% url 'add_item' %}">
+                <i class="fas fa-plus add-icon i"></i>
+            </a>
+        </div>
+        {% endif %}
+    </nav>
+    {% if user.is_authenticated %}
+        <div class="itemlist">
+            {% for item in items %}
+            {% if item.author == request.user %}
+                <div class="items">
+                    <a class="item-link" href={{item.link}}>
+                        <div class="thumbnail-wrapper"><img width="auto" height="20vh" src={{item.thumbnail}} class="item-content"></img></div>
+                        <div class="item-content">{{item.name}}</div>
+                    </a>
+                </div>
+            {% endif %}
+            {% endfor %}
+        </div>
+    {% else %}
+    <div class="login-please">
+        <a class="please" href="{% url 'home' %}">Login please</a>
+    </div>
+    {% endif %}
+{% endblock %}

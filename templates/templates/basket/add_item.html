@@ -1,9 +1,12 @@
 {% extends 'board/base.html' %}
 
 {% block content %}
+    {% if user.is_authenticated %}
     <form method="POST">{% csrf_token %}
-        <input class="item-name" placeholder="name" name="item_name">
-        <input class="item-link" placeholder="link" name="item_link">
-        <button type="submit">add</button>
+        <input class="itemname" name="name" placeholder="item name">
+        <input class="link" name="link" placeholder="item link">
+        <button type="submit">Save</button>
     </form>
+    <a href="{% url 'home' %}">home</a>
+    {% endif %}
 {% endblock %}

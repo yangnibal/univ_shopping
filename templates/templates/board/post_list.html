@@ -1,13 +1,32 @@
 {% extends 'board/base.html' %}
 
 {% block content %}
-    <h1>hi</h1>
-    <h1><a href="{% url 'post_new' %}">add post</a></h1>
-    {% for post in posts %}
-        <a class="posts" href="{% url 'post_detail' pk=post.pk %}">
-            <div class="title">title: {{post.title}}</div>
-            <div class="author">author: {{post.author}}</div>
-            <div class="created_date">created: {{post.created_date}}</div>
-        </a>
-    {% endfor %}
+    <div class="postlist-wrapper">
+        <nav class="blog-nav">
+            <div class="blog-logo">WISHLIST</div>
+            <div class="blog-icon">
+                <a href="{% url 'home' %}">
+                    <i class="fas fa-home add-icon i"></i>
+                </a>
+            </div>
+            {% if user.is_authenticated %}
+            <div class="blog-icon">
+                <a href="{% url 'post_new' %}">
+                    <i class="fas fa-plus add-icon i"></i>
+                </a>
+            </div>
+            {% endif %}
+        </nav>
+        <div class="posts-wrapper">
+        {% for post in posts %}
+        <div class="post-wrapper">
+            <a class="posts" href="{% url 'post_detail' pk=post.pk %}">
+                <div class="created_date">게시일: {{post.created_date}}</div>
+                <h1 class="title">{{post.title}}</h1>   
+                <h3 class="text">{{post.content|linebreaksbr}}</h3>
+            </a>
+        </div>       
+        {% endfor %}
+        </div>
+    </div> 
 {% endblock %}

@@ -1,13 +1,36 @@
 {% extends 'board/base.html' %}
 
 {% block content %}
-    <div>
-        <h1>Hello, {{ user.username }}</h1>
-        <h1>Home</h1>
-        <a href="{% url 'board_list' %}">게시판</a>
-        <a href="{% url 'basket_list' %}">장바구니</a>
-        <a href="{% url 'login' %}">로그인</a>
-        <a href="{% url 'signup' %}">회원가입</a>
-        <a href="{% url 'logout' %}">로그아웃</a>
+    <div class="home-wrapper">
+        <div class="navbar">
+            <div class="nav-cont">
+                <a class="cont" href="{% url 'board_list' %}"><i class="fas fa-blog i"></i></a>
+            </div>
+            <div class="nav-cont">
+                <a class="cont" href="{% url 'item_list' %}"><i class="fas fa-shopping-basket i"></i></a>
+            </div>
+            <div class="nav-cont">
+                <div class="cont">{{ user.username }}</div> 
+            </div>
+        </div>
+        <div class="logo-wrapper">
+            <h1 class="logo">WISHLIST</h1>
+        </div>
+        <div class="button-wrapper">
+            {% if user.username == "" %}
+                <div class="buttons s">
+                    <a class="button" href="{% url 'login' %}">로그인</a>
+                </div>
+                <div class="buttons">
+                    <a class="button" href="{% url 'signup' %}">회원가입</a>
+                </div>
+            {% endif %}
+            {% if user.username != "" %}
+                <div class="buttons">
+                    <a class="button" href="{% url 'logout' %}">로그아웃</a>
+                </div>
+            {% endif %}
+        </div>
+        
     </div>
 {% endblock %}

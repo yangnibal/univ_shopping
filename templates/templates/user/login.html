@@ -1,12 +1,15 @@
 {% extends 'board/base.html' %}
 
 {% block content %}
-    <div>
-        <form method="POST" action="{% url 'login' %}">{% csrf_token %}
+    <div class="login-wrapper">
+        <form method="POST" class="login-form">{% csrf_token %}
             {% if error %}
-                {{error}}
+                <script>
+                    alert('username or password is not correct')
+                </script>
             {% endif %}
-            {{ form.as_p }}
+            <input class="login-input" placeholder="username" name="username">
+            <input class="login-input" placeholder="password" name="password">
             <button type="submit">login</button>
             <a href="{% url 'signup' %}">signup</a>
         </form>
