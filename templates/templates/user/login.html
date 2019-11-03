@@ -10,8 +10,10 @@
             {% endif %}
             <input class="login-input" placeholder="username" name="username">
             <input class="login-input" placeholder="password" name="password">
-            <button type="submit">login</button>
-            <a href="{% url 'signup' %}">signup</a>
+            <div class="post-sub-btn p">
+                <button class="login-btn l" type="submit">login</button>
+                <a class="login-btn" href="{% url 'signup' %}"><p>signup</p></a>
+            </div> 
         </form>
     </div>
 {% endblock %}

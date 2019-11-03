@@ -36,6 +36,8 @@ def signup(request):
             user.save()
             auth.login(request, user)
             return redirect('login')
+        else:
+            return render(request, 'user/signuperror.html', {'error', '비밀번호가 일치하지 않습니다.'})
         return render(request, 'user/signup.html', {})
     return render(request, 'user/signup.html', {})
 

@@ -1,12 +1,32 @@
 {% extends 'board/base.html' %}
 
 {% block content %}
+    <nav class="blog-nav">
+        <div class="blog-logo">WISHLIST</div>
+        <div class="blog-icon">
+            <a href="{% url 'home' %}">
+                <i class="fas fa-home add-icon i"></i>
+            </a>
+        </div>
+        {% if user.is_authenticated %}
+        <div class="blog-icon">
+            <a href="{% url 'post_new' %}">
+                <i class="fas fa-plus add-icon i"></i>
+            </a>
+        </div>
+        {% endif %}
+    </nav>
     {% if user.is_authenticated %}
-    <h1>New post</h1>
     <form method="POST">{% csrf_token %}
-        <input class="post-title" name="title" placeholder="title">
-        <input class="post-content" name="content" placeholder="content">
-        <button type="submit">Save</button>
+        <div class="postform">
+            {% for field in form %}
+                {{field|linebreaksbr}}
+            {% endfor %}
+        </div>
+        <div class="post-sub-btn">
+            <button class="post-btn l" type="submit">Save</button>
+            <a class="post-btn" href="{% url 'board_list' %}"><p>Cancle</p></a>
+        </div>
     </form>
     {% endif %}
 {% endblock %}

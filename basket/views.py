@@ -14,27 +14,27 @@ def item_list(request):
 def add_item(request):
     if request.method == "POST":
         item_Url = request.POST['link']
+        headers = {
+            'User-Agent': 'My User Agent 1.0'
+        }
+        thumbnaillink = ''
         if 'gmarket' in item_Url:
             thumbnaillink = BeautifulSoup(str(BeautifulSoup(
             requests.get(item_Url).text, 
             'html.parser').select("#og_image")[0]).split('\n')[0], 
             'html.parser').findAll('meta')[0].get('content')
         if '11st' in item_Url:
-            thumbnaillink = BeautifulSoup(str(BeautifulSoup(
-            requests.get(item_Url).text, 
-            'html.parser').select("head > meta:nth-child(27)")[0]).split('\n')[0], 
-            'html.parser').findAll('meta')[0].get('content')
+            thumbnaillink = BeautifulSoup(
+            requests.get(item_Url).text,
+            'html.parser').select('.v-align > img')[0].get('src')
         if 'auction' in item_Url:
-            thumbnaillink = BeautifulSoup(str(BeautifulSoup(
+            thumbnaillink = BeautifulSoup(
             requests.get(item_Url).text, 
-            'html.parser').select("head > meta:nth-child()")[0]).split('\n')[0], 
-            'html.parser').findAll('meta')[0].get('content')
+            'html.parser').select('li.on > a > img')[0].get('src')
         if 'coupang' in item_Url:
-            thumbnaillink = BeautifulSoup(str(BeautifulSoup(
-            requests.get(item_Url).text, 
-            'html.parser').select("head > meta:nth-child(22)")[0]).split('\n')[0], 
-            'html.parser').findAll('meta')[0].get('content')
-            thumbnaillink = 'https:'+thumbnaillink
+            thumbnaillink = 'https:'+BeautifulSoup(requests.get(
+            item_Url,headers=headers).text, 
+            'html.parser').select('#repImageContainer > img')[0].get('src')
         item = Item()
         item.name = request.POST['name']
         item.link = request.POST['link']
@@ -46,6 +46,11 @@ def add_item(request):
     else:
         item = Item()
     return render(request, 'basket/add_item.html', {'item':item})
+
+def item_delete(request, pk):
+    item = get_object_or_404(Item, pk=pk)
+    item.delete()
+    return redirect('item_list')
 
 def error(request):
     return render(request, 'basket/error.html', {'error':'You do not have access to this cart.'})

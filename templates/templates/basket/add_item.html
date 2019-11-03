@@ -1,12 +1,31 @@
 {% extends 'board/base.html' %}
 
 {% block content %}
+    <nav class="blog-nav">
+        <div class="blog-logo">WISHLIST</div>
+        <div class="blog-icon">
+            <a href="{% url 'home' %}">
+                <i class="fas fa-home add-icon i"></i>
+            </a>
+        </div>
+        {% if user.is_authenticated %}
+        <div class="blog-icon">
+            <a href="{% url 'add_item' %}">
+                <i class="fas fa-plus add-icon i"></i>
+            </a>
+        </div>
+        {% endif %}
+    </nav>
     {% if user.is_authenticated %}
     <form method="POST">{% csrf_token %}
-        <input class="itemname" name="name" placeholder="item name">
-        <input class="link" name="link" placeholder="item link">
-        <button type="submit">Save</button>
+        <div class="postform">
+            <input class="form-title" name="name" placeholder="이름을 입력해주세요.">
+            <input class="form-content" name="link" placeholder="링크를 넣어주세요.">
+        </div>
+        <div class="post-sub-btn">
+            <button class="post-btn l" type="submit">Save</button>
+            <a class="post-btn" href="{% url 'item_list' %}"><p>Cancle</p></a>
+        </div>
     </form>
-    <a href="{% url 'home' %}">home</a>
     {% endif %}
 {% endblock %}

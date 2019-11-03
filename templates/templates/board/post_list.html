@@ -23,7 +23,7 @@
             <a class="posts" href="{% url 'post_detail' pk=post.pk %}">
                 <div class="created_date">게시일: {{post.created_date}}</div>
                 <h1 class="title">{{post.title}}</h1>   
-                <h3 class="text">{{post.content|linebreaksbr}}</h3>
+                <div class="text">{{post.content|linebreaksbr}}</div>
             </a>
         </div>       
         {% endfor %}

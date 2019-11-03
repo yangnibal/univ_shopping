@@ -6,7 +6,7 @@
 {% endblock %}
 
 {% block content %}
-    <nav class="blog-nav">
+    <nav class="items-nav">
         <div class="blog-logo">WISHLIST</div>
         <div class="blog-icon">
             <a href="{% url 'home' %}">
@@ -22,17 +22,24 @@
         {% endif %}
     </nav>
     {% if user.is_authenticated %}
-        <div class="itemlist">
+        <div class="itemlist-wrapper">
+            <div class="itemlist">
             {% for item in items %}
             {% if item.author == request.user %}
-                <div class="items">
-                    <a class="item-link" href={{item.link}}>
-                        <div class="thumbnail-wrapper"><img width="auto" height="20vh" src={{item.thumbnail}} class="item-content"></img></div>
+            <article class="items">
+                <a class="item-link" href={{item.link}}>
+                    <div class="thumbnail-wrapper"><img width="50%" height="auto" src={{item.thumbnail}} class="item-content"></img></div>
+                    <div class="item-content-wrapper">
                         <div class="item-content">{{item.name}}</div>
-                    </a>
-                </div>
+                        <a class="item-delete" href="{% url 'item_delete' pk=item.pk %}">
+                            <i class="fas fa-trash-alt j"></i>
+                        </a>
+                    </div>
+                </a>
+            </article>
             {% endif %}
             {% endfor %}
+            </div>
         </div>
     {% else %}
     <div class="login-please">

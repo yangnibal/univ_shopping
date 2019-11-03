@@ -45,4 +45,9 @@ def post_edit(request, pk):
         form = BoardForm(instance=post)
     return render(request, 'board/post_edit.html', {'form': form})
 
+def post_delete(request, pk):
+    post = get_object_or_404(Board, pk=pk)
+    post.delete()
+    return redirect('board_list')
+
 # Create your views here.
